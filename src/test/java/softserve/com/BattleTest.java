@@ -2,6 +2,9 @@ package softserve.com;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softserve.com.model.Knight;
+import softserve.com.model.Warrior;
+import softserve.com.service.Battle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +33,7 @@ class BattleTest {
 
     @Test
     @DisplayName("Knight hits warrior and warrior`s health is reduced by 7")
-    void givenKnightHitsWarrior_WarriorHealthIsReducedToSeven() {
+    void knightHitsWarrior_WarriorHealthIsReducedToSeven() {
         //Given
         Warrior warrior = new Warrior();
         Knight knight = new Knight();
