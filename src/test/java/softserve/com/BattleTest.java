@@ -33,7 +33,7 @@ class BattleTest {
 
     @Test
     @DisplayName("Knight hits warrior and warrior`s health is reduced by 7")
-    void givenKnightHitsWarrior_WarriorHealthIsReducedToSeven() {
+    void knightHitsWarrior_WarriorHealthIsReducedToSeven() {
         //Given
         Warrior warrior = new Warrior();
         Knight knight = new Knight();

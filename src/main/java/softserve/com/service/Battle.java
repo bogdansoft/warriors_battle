@@ -1,5 +1,6 @@
 package softserve.com.service;
 
+import softserve.com.model.Army;
 import softserve.com.model.Warrior;
 
 public class Battle {
@@ -14,5 +15,26 @@ public class Battle {
             }
         }
         return warrior1.isAlive();
+    }
+
+    public static boolean fight(Army attackerArmy, Army defenderArmy) {
+        int lengthFirstArmy = attackerArmy.getWarriors().size() - 1;
+        int lengthSecondArmy = defenderArmy.getWarriors().size() - 1;
+
+        int cursorFirstArmy = 0;
+        int cursorSecondArmy = 0;
+
+        var warriorAttacker = attackerArmy.getWarriors().get(lengthFirstArmy);
+        var warriorDefender = defenderArmy.getWarriors().get(lengthSecondArmy);
+
+        while (warriorAttacker.isUnitAlive() && warriorDefender.isUnitAlive()) {
+            if (fight((Warrior) attackerArmy.getWarriors().get(cursorFirstArmy),
+                    (Warrior) defenderArmy.getWarriors().get(cursorSecondArmy))) {
+                cursorSecondArmy++;
+            } else {
+                cursorFirstArmy++;
+            }
+        }
+        return warriorAttacker.isUnitAlive();
     }
 }
