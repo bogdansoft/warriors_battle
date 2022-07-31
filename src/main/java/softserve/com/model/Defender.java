@@ -1,4 +1,5 @@
 package softserve.com.model;
 
-public class Defender {
+public class Defender extends Warrior{
+
 }
