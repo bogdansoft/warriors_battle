@@ -1,4 +1,6 @@
-package softserve.com;
+package softserve.com.service;
+
+import softserve.com.model.Warrior;
 
 public class Battle {
     private Battle() {

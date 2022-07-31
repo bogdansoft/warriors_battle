@@ -1,15 +1,15 @@
-package softserve.com;
+package softserve.com.model;
 
 public class Warrior {
     protected static final int ATTACK = 5;
-    static final int INITIAL_HEALTH = 50;
+    public static final int INITIAL_HEALTH = 50;
     private int health = INITIAL_HEALTH;
 
     public boolean isAlive() {
         return health > 0;
     }
 
-    int getHealth() {
+    public int getHealth() {
         return health;
     }
 
