@@ -134,7 +134,7 @@ The basic parameters of the Defender:
         
 ```
 Note: From now on, the tests from "check" part will use another type of warrior: the rookie. Its code is
-```
+```java
 public class Rookie extends Warrior {
     @Override
     public int getAttack() {
