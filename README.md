@@ -78,3 +78,67 @@ army4.addUnits(() -> new Warrior(), 30);
 assert Battle.fight(myArmy, enemyArmy) == true;
 assert Battle.fight(army3, army4) == false;
 ```
+
+#### Branch 3-defenders
+
+In the previous mission - Army battles, you've learned how to make a battle between 2 armies. But we have only 2 types of units - the Warriors and Knights.
+Let's add another one - the Defender. It should be the subclass of the Warrior class and have an additional defense parameter, which helps him to survive 
+longer. When another unit hits the defender, he loses a certain amount of his health according to the next formula:
+enemy attack - self defense (if enemy attack > self defense).
+Otherwise, the defender doesn't lose his health.
+The basic parameters of the Defender:
+
+    health = 60
+    attack = 3
+    defense = 2
+    
+#### Example:
+
+```
+        var chuck = new Warrior();
+        var bruce = new Warrior();
+        var carl = new Knight();
+        var dave = new Warrior();
+        var mark = new Warrior();
+        var bob = new Defender();
+        var mike = new Knight();
+        var rog = new Warrior();
+        var lancelot = new Defender();
+
+        assert Battle.fight(chuck, bruce) == true;
+        assert Battle.fight(dave, carl) == false;
+        assert chuck.isAlive() == true;
+        assert bruce.isAlive() == false;
+        assert carl.isAlive() == true;
+        assert dave.isAlive() == false;
+        assert Battle.fight(carl, mark) == false;
+        assert carl.isAlive() == false;
+        assert Battle.fight(bob, mike) == false;
+        assert Battle.fight(lancelot, rog) == true;
+
+        var myArmy = new Army();
+        myArmy.addUnits(Defender::new, 1);
+
+        var enemyArmy = new Army();
+        enemyArmy.addUnits(Warrior::new, 2);
+
+        var army3 = new Army();
+        army3.addUnits(Warrior::new, 1);
+        army3.addUnits(Defender::new, 1);
+
+        var army4 = new Army();
+        army4.addUnits(Warrior::new, 2);
+
+        assert Battle.fight(myArmy, enemyArmy) == false;
+        assert Battle.fight(army3, army4) == true;
+        
+```
+Note: From now on, the tests from "check" part will use another type of warrior: the rookie. Its code is
+```java
+public class Rookie extends Warrior {
+    @Override
+    public int getAttack() {
+        return 1;
+    }
+}
+```
