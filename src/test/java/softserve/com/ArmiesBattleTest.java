@@ -9,7 +9,7 @@ import softserve.com.service.Battle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ArmiesBattleTest {
+class ArmiesBattleTest {
 
     @Test
     void smokeTest() {

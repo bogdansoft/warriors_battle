@@ -17,13 +17,8 @@ public class Defender extends Warrior implements CanDefend {
     }
 
     @Override
-    public int getHealth() {
-        return this.health;
-    }
-
-    @Override
     public void receiveDamage(Damage damage, CanFight damageDealer) {
-        setHealth(getHealth() - (damage.getHitPoints()-getDefence()));
+        setHealth(getHealth() - (damage.getHitPoints() - getDefence()));
     }
 
     @Override

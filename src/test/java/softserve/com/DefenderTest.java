@@ -9,10 +9,11 @@ import softserve.com.service.Battle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DefenderTest {
+class DefenderTest {
 
     @Test
     void smokeTest() {
+        //Given
         var chuck = new Warrior();
         var bruce = new Warrior();
         var carl = new Knight();
@@ -23,33 +24,32 @@ public class DefenderTest {
         var mike = new Knight();
         var lancelot = new Defender();
 
-        assertFalse(Battle.fight(bob, mike));
-        assertTrue(Battle.fight(lancelot, rog));
-        assertTrue(Battle.fight(chuck, bruce));
-        assertFalse(Battle.fight(dave, carl));
-        assertTrue(chuck.isAlive());
-        assertFalse(bruce.isAlive());
-        assertTrue(carl.isAlive());
-
-        assertFalse(dave.isAlive());
-        assertFalse(Battle.fight(carl, mark));
-        assertFalse(carl.isAlive());
-
-
         var myArmy = new Army();
-        myArmy.addUnits(Defender::new, 1);
-
         var enemyArmy = new Army();
-        enemyArmy.addUnits(Warrior::new, 2);
-
         var army3 = new Army();
+        var army4 = new Army();
+
+        //When
+        myArmy.addUnits(Defender::new, 1);
+        enemyArmy.addUnits(Warrior::new, 2);
         army3.addUnits(Warrior::new, 1);
         army3.addUnits(Defender::new, 1);
-
-        var army4 = new Army();
         army4.addUnits(Warrior::new, 2);
 
-        assertFalse(Battle.fight(myArmy, enemyArmy));
-        assertTrue(Battle.fight(army3, army4));
+        //Then
+        assertAll(
+                () -> assertFalse(Battle.fight(bob, mike)),
+                () -> assertTrue(Battle.fight(lancelot, rog)),
+                () -> assertTrue(Battle.fight(chuck, bruce)),
+                () -> assertFalse(Battle.fight(dave, carl)),
+                () -> assertTrue(chuck.isAlive()),
+                () -> assertFalse(bruce.isAlive()),
+                () -> assertTrue(carl.isAlive()),
+                () -> assertFalse(dave.isAlive()),
+                () -> assertFalse(Battle.fight(carl, mark)),
+                () -> assertFalse(carl.isAlive()),
+                () -> assertFalse(Battle.fight(myArmy, enemyArmy)),
+                () -> assertTrue(Battle.fight(army3, army4))
+        );
     }
 }
