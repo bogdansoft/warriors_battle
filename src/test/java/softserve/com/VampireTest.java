@@ -22,7 +22,7 @@ public class VampireTest {
         var adam = new Vampire();
         var richard = new Defender();
         var ogre = new Warrior();
-        assertTrue(Battle.fight(richard,eric));
+        //assertTrue(Battle.fight(richard,eric));
         //assertEquals(-1,eric.getHealth());
         //assertEquals(22,richard.getHealth());
 

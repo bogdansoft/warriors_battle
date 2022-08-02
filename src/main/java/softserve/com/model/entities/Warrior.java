@@ -9,8 +9,7 @@ public class Warrior implements Unit, CanFight {
     protected static final int ATTACK = 5;
     public static final int INITIAL_HEALTH = 50;
     int attack;
-    int health = INITIAL_HEALTH;
-    public int defense;
+    private int health = INITIAL_HEALTH;
 
     public Warrior() {
         this(INITIAL_HEALTH, ATTACK);
