@@ -8,9 +8,6 @@ public class Defender extends Warrior implements CanDefend {
     protected static final int ATTACK = 3;
     public static final int INITIAL_HEALTH = 60;
     public static final int DEFENSE = 2;
-    int defense = DEFENSE;
-
-    private int health = INITIAL_HEALTH;
 
     public Defender() {
         super(INITIAL_HEALTH, ATTACK);
@@ -33,4 +30,3 @@ public class Defender extends Warrior implements CanDefend {
         return DEFENSE;
     }
 }
-// if(opponent.getAttack() > getDefence())
