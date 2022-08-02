@@ -1,4 +1,6 @@
-package softserve.com.model;
+package softserve.com.model.entities;
+
+import softserve.com.model.interfaces.Unit;
 
 import java.util.ArrayList;
 import java.util.List;

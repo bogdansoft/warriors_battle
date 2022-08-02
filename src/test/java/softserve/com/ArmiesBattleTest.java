@@ -2,14 +2,14 @@ package softserve.com;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softserve.com.model.Army;
-import softserve.com.model.Knight;
-import softserve.com.model.Warrior;
+import softserve.com.model.entities.Army;
+import softserve.com.model.entities.Knight;
+import softserve.com.model.entities.Warrior;
 import softserve.com.service.Battle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ArmiesBattleTest {
+class ArmiesBattleTest {
 
     @Test
     void smokeTest() {

@@ -1,13 +1,24 @@
 package softserve.com.service;
 
-import softserve.com.model.Army;
-import softserve.com.model.Warrior;
+import softserve.com.model.entities.Army;
+import softserve.com.model.interfaces.CanFight;
+import softserve.com.model.entities.Warrior;
 
 public class Battle {
     private Battle() {
     }
 
     public static boolean fight(Warrior warrior1, Warrior warrior2) {
+        while (warrior1.isAlive() && warrior2.isAlive()) {
+            warrior1.hit(warrior2);
+            if (warrior2.isAlive()) {
+                warrior2.hit(warrior1);
+            }
+        }
+        return warrior1.isAlive();
+    }
+
+    public static boolean fight(CanFight warrior1, CanFight warrior2) {
         while (warrior1.isAlive() && warrior2.isAlive()) {
             warrior1.hit(warrior2);
             if (warrior2.isAlive()) {
