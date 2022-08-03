@@ -1,5 +1,7 @@
 package softserve.com.model.interfaces;
 
 public interface CanHeal {
-    void letMeHealYou();
+    int getHealing();
+
+    void letMeHealYou(CanFight colleague);
 }

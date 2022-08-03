@@ -35,7 +35,6 @@ public class VampireTest {
 
         //Then
         assertEquals(expected, actual);
-
     }
 
     private static Stream<Arguments> provideArmies() {

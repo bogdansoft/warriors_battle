@@ -36,7 +36,6 @@ class LancerTest {
 
         //Then
         assertEquals(expected, actual);
-
     }
 
     private static Stream<Arguments> provideArmies() {
