@@ -16,20 +16,19 @@ public class Vampire extends Warrior implements HasVampirism {
     @Override
     public void hit(CanFight opponent) {
         super.hit(opponent);
-        setHealth(this.healHimself(opponent));
-    }
-
-    @Override
-    public int healHimself(CanFight opponent) {
-        if (opponent instanceof Defender defender) {
-            return getHealth() + ((getAttack() - defender.getDefence()) * getVampirismLevel()) / 100;
-        } else {
-            return getHealth() + (getAttack() * getVampirismLevel()) / 100;
+        health += healHimself();
+        if (health > 40) {
+            health = 40;
         }
     }
 
     @Override
+    public int healHimself() {
+        return getAttack() * getVampirismLevel();
+    }
+
+    @Override
     public int getVampirismLevel() {
-        return vampirism;
+        return vampirism / 100;
     }
 }

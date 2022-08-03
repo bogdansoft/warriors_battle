@@ -22,7 +22,7 @@ public class VampireTest {
                 Arguments.of(new Knight(), new Warrior(), true),
                 Arguments.of(new Defender(), new Knight(), false),
                 Arguments.of(new Defender(), new Warrior(), true),
-                Arguments.of(new Warrior(), new Vampire(), false)
+                Arguments.of(new Warrior(), new Vampire(), true)
         );
     }
 
@@ -127,7 +127,7 @@ public class VampireTest {
                                 .addUnits(Warrior::new, 6)
                                 .addUnits(Defender::new, 6)
                                 .addUnits(Vampire::new, 6),
-                        false
+                        true
                 ),
                 Arguments.of(
                         new Army()

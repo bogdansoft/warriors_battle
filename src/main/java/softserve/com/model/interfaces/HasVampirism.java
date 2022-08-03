@@ -3,6 +3,6 @@ package softserve.com.model.interfaces;
 public interface HasVampirism {
     int getVampirismLevel();
 
-    int healHimself(CanFight opponent);
+    int healHimself();
 }
 
