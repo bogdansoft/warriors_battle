@@ -6,4 +6,9 @@ public class Knight extends Warrior {
     public Knight() {
         super(INITIAL_HEALTH, ATTACK);
     }
+
+    @Override
+    public int getAttack() {
+        return ATTACK;
+    }
 }
