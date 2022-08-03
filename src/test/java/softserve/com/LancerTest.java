@@ -1,6 +1,7 @@
 package softserve.com;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -9,9 +10,25 @@ import softserve.com.service.Battle;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LancerTest {
+
+    @Test
+    @DisplayName("Lancer against one warrior & one knight")
+    void smokeTest(){
+        //Given
+        var lancer = new Lancer();
+        var warrior = new Warrior();
+        var knight = new Knight();
+
+        //When
+        Battle.fight(lancer,warrior);
+        var result= Battle.fight(lancer,knight);
+
+        //Then
+        assertFalse(result);
+    }
 
     private static Stream<Arguments> provideWarriorTypes() {
         //Given
