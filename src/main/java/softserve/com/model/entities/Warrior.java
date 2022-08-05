@@ -44,7 +44,7 @@ public class Warrior implements Unit, CanFight {
 
     @Override
     public void receiveDamage(Damage damage, CanFight damageDealer) {
-        setHealth(getHealth() - damage.getHitPoints());
+        setHealth(getHealth() - damage.hitPoints());
     }
 
     @Override

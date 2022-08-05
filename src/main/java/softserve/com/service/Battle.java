@@ -5,14 +5,19 @@ import org.slf4j.LoggerFactory;
 import softserve.com.model.entities.Army;
 import softserve.com.model.entities.Warrior;
 
+import java.util.List;
+
 public class Battle {
     private static final Logger LOGGER = LoggerFactory.getLogger(Battle.class);
     public static int count;
+    public static int a;
 
     private Battle() {
+        throw new UnsupportedOperationException("Utility class");
     }
 
     public static boolean fight(Warrior warrior1, Warrior warrior2) {
+        a = count;
         count = 0;
         LOGGER.debug("Battle between {} and {} have been started, health of first = {}  health of second = {}",
                 warrior1.getClass().getSimpleName(),
@@ -23,7 +28,7 @@ public class Battle {
 
         while (warrior1.isAlive() && warrior2.isAlive()) {
             warrior1.hit(warrior2);
-            ++count;
+            count++;
             if (warrior2.isAlive()) {
                 warrior2.hit(warrior1);
             }
