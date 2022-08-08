@@ -1,8 +1,7 @@
 package softserve.com.model.entities;
 
 import softserve.com.model.interfaces.CanDefend;
-import softserve.com.model.interfaces.CanFight;
-import softserve.com.model.interfaces.Damage;
+import softserve.com.model.damage.interfaces.Damage;
 
 public class Defender extends Warrior implements CanDefend {
     protected static final int ATTACK = 3;
@@ -14,7 +13,7 @@ public class Defender extends Warrior implements CanDefend {
     }
 
     @Override
-    public void receiveDamage(Damage damage, CanFight damageDealer) {
+    public void receiveDamage(Damage damage) {
         if (damage.hitPoints() > getDefence()) {
             setHealth(getHealth() - (damage.hitPoints() - getDefence()));
         }

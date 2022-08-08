@@ -238,7 +238,7 @@ class LancerTest {
                         new Army()
                                 .addUnits(Lancer::new, 1)
                                 .addUnits(Warrior::new, 1),
-                        false
+                        true
                 )
         );
     }

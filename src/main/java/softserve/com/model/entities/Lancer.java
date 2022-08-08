@@ -1,45 +1,35 @@
 package softserve.com.model.entities;
 
-import softserve.com.model.damage_impl.SimpleDamage;
-import softserve.com.model.interfaces.CanFight;
-import softserve.com.service.Battle;
+import softserve.com.model.damage.PiercingDamage;
+import softserve.com.model.damage.SimpleDamage;
+import softserve.com.model.interfaces.CanPierce;
+import softserve.com.model.interfaces.WarriorInterface;
 
-import java.util.*;
-
-public class Lancer extends Warrior {
+public class Lancer extends Warrior implements CanPierce {
     protected static final int ATTACK = 6;
     public static final int INITIAL_HEALTH = 50;
     private int health = INITIAL_HEALTH;
-   // private int count = Battle.count;
-    private Set<CanFight> lancerOpponents = new LinkedHashSet<>();
 
     public Lancer() {
         super(INITIAL_HEALTH, ATTACK);
     }
 
-    private CanFight getWarrior() {
-        return lancerOpponents
-                .stream()
-                .skip(1)
-                .findFirst()
-                .orElseThrow();
-    }
 
     @Override
-    public int getAttack() {
-        return ATTACK;
-    }
+    public void hit(WarriorInterface opponent) {
+        int healthBeforeHit = opponent.getHealth();
+        super.hit(opponent);
+        int dealtDamage = healthBeforeHit - opponent.getHealth();
 
-    @Override
-    public void hit(CanFight opponent) {
-        lancerOpponents.add(opponent);
-        opponent.receiveDamage(new SimpleDamage(getAttack()), this);
-
-        if (lancerOpponents.size() > 1) {
-            CanFight secondOpponent = getWarrior();
-            secondOpponent.receiveDamage(new SimpleDamage(getAttack() / 2 * Battle.count), this);
+        WarriorInterface nextBehind = opponent.getNextBehind();
+        if (nextBehind != null) {
+            int pierceDamage = dealtDamage * getPierce() / 100;
+            nextBehind.receiveDamage(new PiercingDamage(pierceDamage, this));
         }
+    }
 
-       // lancerOpponents.removeIf(o -> !o.isAlive());
+    @Override
+    public int getPierce() {
+        return this.ATTACK / 2;
     }
 }
