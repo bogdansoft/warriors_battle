@@ -1,7 +1,7 @@
 package softserve.com.model.entities;
 
-import softserve.com.model.interfaces.CanFight;
 import softserve.com.model.interfaces.HasVampirism;
+import softserve.com.model.interfaces.WarriorInterface;
 
 public class Vampire extends Warrior implements HasVampirism {
     public static final int ATTACK = 4;
@@ -14,7 +14,7 @@ public class Vampire extends Warrior implements HasVampirism {
     }
 
     @Override
-    public void hit(CanFight opponent) {
+    public void hit(WarriorInterface opponent) {
         super.hit(opponent);
         health += healHimself();
         if (health > 40) {

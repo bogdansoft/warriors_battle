@@ -1,7 +1,10 @@
 package softserve.com.model.interfaces;
 
 public interface CanHeal {
-    int getHealing();
+    default void heal(HasHealth colleague) {
+        var setHealthValue = Math.min(colleague.getInitialHealth(), colleague.getHealth() + getHealPower());
+        colleague.setHealth(setHealthValue);
+    }
 
-    void letMeHealYou(CanFight colleague);
+    int getHealPower();
 }

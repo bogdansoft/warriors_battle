@@ -7,13 +7,13 @@ import softserve.com.model.entities.Warrior;
 
 public class Battle {
     private static final Logger LOGGER = LoggerFactory.getLogger(Battle.class);
-    public static int count;
 
     private Battle() {
+        throw new UnsupportedOperationException("Utility class");
     }
 
     public static boolean fight(Warrior warrior1, Warrior warrior2) {
-        count = 0;
+
         LOGGER.debug("Battle between {} and {} have been started, health of first = {}  health of second = {}",
                 warrior1.getClass().getSimpleName(),
                 warrior2.getClass().getSimpleName(),
@@ -23,7 +23,6 @@ public class Battle {
 
         while (warrior1.isAlive() && warrior2.isAlive()) {
             warrior1.hit(warrior2);
-            ++count;
             if (warrior2.isAlive()) {
                 warrior2.hit(warrior1);
             }
@@ -60,5 +59,4 @@ public class Battle {
         LOGGER.debug("Armies battle have been completed");
         return warriorAttacker.isUnitAlive();
     }
-
 }

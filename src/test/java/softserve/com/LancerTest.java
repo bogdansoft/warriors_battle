@@ -10,21 +10,22 @@ import softserve.com.service.Battle;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class LancerTest {
 
     @Test
     @DisplayName("Lancer against one warrior & one knight")
-    void smokeTest(){
+    void smokeTest() {
         //Given
         var lancer = new Lancer();
         var warrior = new Warrior();
         var knight = new Knight();
 
         //When
-        Battle.fight(lancer,warrior);
-        var result= Battle.fight(lancer,knight);
+        Battle.fight(lancer, warrior);
+        var result = Battle.fight(lancer, knight);
 
         //Then
         assertFalse(result);
@@ -53,6 +54,7 @@ class LancerTest {
 
         //Then
         assertEquals(expected, actual);
+
     }
 
     private static Stream<Arguments> provideArmies() {
@@ -236,7 +238,7 @@ class LancerTest {
                         new Army()
                                 .addUnits(Lancer::new, 1)
                                 .addUnits(Warrior::new, 1),
-                        false
+                        true
                 )
         );
     }
