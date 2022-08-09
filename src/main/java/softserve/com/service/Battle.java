@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import softserve.com.model.entities.Army;
 import softserve.com.model.entities.Warrior;
+import softserve.com.model.interfaces.Unit;
 
 public class Battle {
     private static final Logger LOGGER = LoggerFactory.getLogger(Battle.class);
