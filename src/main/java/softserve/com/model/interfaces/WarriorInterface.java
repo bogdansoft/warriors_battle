@@ -1,32 +1,25 @@
 package softserve.com.model.interfaces;
 
-import softserve.com.model.command.HealCommand;
-import softserve.com.model.command.interfaces.CommandInterface;
 import softserve.com.model.damage.SimpleDamage;
 import softserve.com.model.damage.interfaces.Damage;
+import softserve.com.model.entities.Warrior;
 
 public interface WarriorInterface extends CanAttack, HasHealth {
+    void process(WarriorInterface warrior);
+
     default void hit(WarriorInterface opponent) {
         opponent.receiveDamage(new SimpleDamage(getAttack(), this));
-        processCommand(new HealCommand(), this);
     }
 
     default void receiveDamage(Damage damage) {
-        reduceHealthBasedOnDamage(damage.hitPoints());
+        setHealth(getHealth()- damage.hitPoints());
     }
 
-    default WarriorInterface getNextBehind() {
-        return null;
-    }
+    Warrior getNextWarrior();
 
-    default void setNextBehind(WarriorInterface nextBehind) {
-        throw new UnsupportedOperationException();
-    }
+     void setNextWarrior(Warrior nextBehind);
 
-    default void processCommand(CommandInterface command, WarriorInterface sender) {
-        var behind = getNextBehind();
-        if (behind != null) {
-            behind.processCommand(command, this);
-        }
-    }
+    Warrior getFrontWarrior();
+
+    void setFrontWarrior(Warrior frontWarrior);
 }

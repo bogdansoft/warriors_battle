@@ -8,20 +8,22 @@ public class Warrior implements Unit, WarriorInterface {
     public static final int INITIAL_HEALTH = 50;
     int attack;
     private int health = INITIAL_HEALTH;
-    private WarriorInterface nextBehind;
+    private Warrior nextWarrior = null;
+    private Warrior frontWarrior = null;
 
     public Warrior() {
         this(INITIAL_HEALTH, ATTACK);
     }
 
+    @Override
+    public void hit(WarriorInterface opponent) {
+        WarriorInterface.super.hit(opponent);
+        process(this);
+    }
+
     protected Warrior(int health, int attack) {
         this.health = health;
         this.attack = attack;
-    }
-
-    @Override
-    public int getInitialHealth() {
-        return health;
     }
 
     @Override
@@ -39,22 +41,35 @@ public class Warrior implements Unit, WarriorInterface {
         return ATTACK;
     }
 
-   /* public boolean isAlive() {
-        return health > 0;
-    }*/
-
     @Override
     public boolean isUnitAlive() {
         return this.getHealth() > 0;
     }
 
     @Override
-    public WarriorInterface getNextBehind() {
-        return nextBehind;
+    public Warrior getNextWarrior() {
+        return nextWarrior;
     }
 
     @Override
-    public void setNextBehind(WarriorInterface nextBehind) {
-        this.nextBehind = nextBehind;
+    public void setNextWarrior(Warrior nextWarrior) {
+        this.nextWarrior = nextWarrior;
+    }
+
+    @Override
+    public Warrior getFrontWarrior() {
+        return frontWarrior;
+    }
+
+    @Override
+    public void setFrontWarrior(Warrior frontWarrior) {
+        this.frontWarrior = frontWarrior;
+    }
+
+    @Override
+    public void process(WarriorInterface warrior) {
+        if (nextWarrior != null) {
+            warrior.process(warrior.getNextWarrior());
+        }
     }
 }

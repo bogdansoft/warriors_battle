@@ -22,7 +22,19 @@ public class Battle {
         );
 
         while (warrior1.isAlive() && warrior2.isAlive()) {
+
+            LOGGER.debug("Before hit warrior {} has health {}",
+                    warrior2.getClass().getSimpleName(),
+                    warrior2.getHealth()
+            );
+
             warrior1.hit(warrior2);
+
+            LOGGER.debug("After hit warrior {} has health {}",
+                    warrior2.getClass().getSimpleName(),
+                    warrior2.getHealth()
+            );
+
             if (warrior2.isAlive()) {
                 warrior2.hit(warrior1);
             }

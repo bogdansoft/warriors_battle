@@ -3,8 +3,8 @@ package softserve.com.model.damage;
 import softserve.com.model.damage.interfaces.Damage;
 import softserve.com.model.interfaces.WarriorInterface;
 
-public class SimpleDamage implements Damage {
-    private final int hitPoints;
+public class SimpleDamage implements Damage{
+    private int hitPoints;
     private final WarriorInterface damageDealer;
 
     public SimpleDamage(int hitPoints, WarriorInterface damageDealer) {

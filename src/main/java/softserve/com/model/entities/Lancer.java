@@ -1,35 +1,36 @@
 package softserve.com.model.entities;
 
-import softserve.com.model.damage.PiercingDamage;
 import softserve.com.model.damage.SimpleDamage;
-import softserve.com.model.interfaces.CanPierce;
 import softserve.com.model.interfaces.WarriorInterface;
 
-public class Lancer extends Warrior implements CanPierce {
+public class Lancer extends Warrior {
     protected static final int ATTACK = 6;
-    public static final int INITIAL_HEALTH = 50;
-    private int health = INITIAL_HEALTH;
+    private final int PIERCING = 50;
 
     public Lancer() {
         super(INITIAL_HEALTH, ATTACK);
     }
 
-
     @Override
     public void hit(WarriorInterface opponent) {
-        int healthBeforeHit = opponent.getHealth();
         super.hit(opponent);
-        int dealtDamage = healthBeforeHit - opponent.getHealth();
 
-        WarriorInterface nextBehind = opponent.getNextBehind();
-        if (nextBehind != null) {
-            int pierceDamage = dealtDamage * getPierce() / 100;
-            nextBehind.receiveDamage(new PiercingDamage(pierceDamage, this));
+        var nextWarrior = opponent.getNextWarrior();
+        if (nextWarrior != null) {
+            if (opponent instanceof Defender defender) {
+                nextWarrior.receiveDamage(new SimpleDamage((getAttack() - defender.getDefence()) * getPiercing() / 100, this));
+            } else {
+                nextWarrior.receiveDamage(new SimpleDamage(getAttack() * getPiercing() / 100, this));
+            }
         }
     }
 
+    public int getPiercing() {
+        return PIERCING;
+    }
+
     @Override
-    public int getPierce() {
-        return this.ATTACK / 2;
+    public int getAttack() {
+        return ATTACK;
     }
 }

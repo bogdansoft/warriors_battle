@@ -1,25 +1,42 @@
 package softserve.com.model.entities;
 
-import softserve.com.model.interfaces.CanFight;
 import softserve.com.model.interfaces.CanHeal;
+import softserve.com.model.interfaces.WarriorInterface;
 
 public class Healer extends Warrior implements CanHeal {
-    protected static final int ATTACK = 0;
-    public static final int INITIAL_HEALTH = 60;
-    public static final int HEALING = 2;
-    private int health = INITIAL_HEALTH;
+    private static final int INITIAL_HEALTH = 60;
+    private static final int ATTACK = 0;
+    private static final int HEALING = 2;
 
     public Healer() {
         super(INITIAL_HEALTH, ATTACK);
     }
 
-    @Override
-    public int getHealing() {
-        return HEALING;
+    public void heal(WarriorInterface warrior) {
+        warrior.setHealth(warrior.getHealth() + getHealValue());
+        if (warrior.getHealth() > INITIAL_HEALTH) {
+            warrior.setHealth(INITIAL_HEALTH);
+        }
     }
 
     @Override
-    public void letMeHealYou(CanFight colleague) {
+    public void hit(WarriorInterface opponent) {
+    }
 
+    @Override
+    public void process(WarriorInterface warrior) {
+        if (getFrontWarrior() != null) {
+            heal(getFrontWarrior());
+        }
+        super.process(warrior);
+    }
+
+    @Override
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getHealValue() {
+        return HEALING;
     }
 }

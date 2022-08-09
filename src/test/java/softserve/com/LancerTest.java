@@ -230,7 +230,7 @@ class LancerTest {
                                 .addUnits(Defender::new, 4)
                                 .addUnits(Vampire::new, 6)
                                 .addUnits(Lancer::new, 4),
-                        false
+                        true
                 ),
                 Arguments.of(
                         new Army()
