@@ -72,4 +72,15 @@ public class Battle {
         LOGGER.debug("Armies battle have been completed");
         return warriorAttacker.isUnitAlive();
     }
+
+    public static boolean straightFight(Army attackers, Army defenders) {
+        var moreWarriorsInArmy = Math.max(attackers.getWarriors().size(), defenders.getWarriors().size());
+        for (int i = 0; i < moreWarriorsInArmy; i++) {
+            fight((Warrior) attackers.getWarriors().get(i), (Warrior) defenders.getWarriors().get(i));
+            attackers.getWarriors().removeIf(Unit::isUnitAlive);
+            defenders.getWarriors().removeIf(Unit::isUnitAlive);
+        }
+
+        return attackers.getWarriors().size() > defenders.getWarriors().size();
+    }
 }
