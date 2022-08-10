@@ -1,7 +1,6 @@
 package softserve.com.model.entities;
 
 import lombok.*;
-import softserve.com.model.interfaces.WeaponInterface;
 
 @Data
 @Builder
@@ -18,5 +17,4 @@ public class Weapon {
     private int vampirism = 0;
     @Builder.Default
     private int healPower = 0;
-
 }

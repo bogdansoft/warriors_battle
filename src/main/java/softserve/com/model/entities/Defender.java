@@ -28,7 +28,11 @@ public class Defender extends Warrior implements CanDefend {
     @Override
     public void equipWeapon(Weapon weapon) {
         super.equipWeapon(weapon);
-        setDefense(getDefence() + weapon.getDefense());
+
+        var defenseSum = getWeapons().stream()
+                .mapToInt(Weapon::getDefense)
+                .sum();
+        setDefense(DEFENSE + defenseSum);
     }
 
     @Override

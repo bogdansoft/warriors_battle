@@ -4,6 +4,9 @@ import softserve.com.model.interfaces.Unit;
 import softserve.com.model.interfaces.WarriorInterface;
 import softserve.com.model.interfaces.WeaponInterface;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Warrior implements Unit, WarriorInterface, WeaponInterface {
     protected static final int ATTACK = 5;
     public static final int INITIAL_HEALTH = 50;
@@ -11,9 +14,14 @@ public class Warrior implements Unit, WarriorInterface, WeaponInterface {
     private int health = INITIAL_HEALTH;
     private Warrior nextWarrior = null;
     private Warrior frontWarrior = null;
+    private List<Weapon> weapons = new ArrayList<>();
 
     public Warrior() {
         this(INITIAL_HEALTH, ATTACK);
+    }
+
+    public List<Weapon> getWeapons() {
+        return weapons;
     }
 
     @Override
@@ -73,8 +81,17 @@ public class Warrior implements Unit, WarriorInterface, WeaponInterface {
 
     @Override
     public void equipWeapon(Weapon weapon) {
-        setHealth(getHealth() + weapon.getHealth());
-        setAttack(getAttack() + weapon.getAttack());
+        weapons.add(weapon);
+
+        var healthSum = weapons.stream()
+                .mapToInt(Weapon::getHealth)
+                .sum();
+        setHealth(INITIAL_HEALTH + healthSum);
+
+        var attackSum = weapons.stream()
+                .mapToInt(Weapon::getAttack)
+                .sum();
+        setAttack(ATTACK + attackSum);
     }
 
     @Override

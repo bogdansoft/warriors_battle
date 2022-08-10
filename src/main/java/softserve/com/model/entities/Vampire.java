@@ -30,7 +30,11 @@ public class Vampire extends Warrior implements HasVampirism {
     public void equipWeapon(Weapon weapon) {
         super.equipWeapon(weapon);
 
-        var vampirismValue = getVampirismLevel() + weapon.getVampirism();
+        var vampirismSum = getWeapons().stream()
+                .mapToInt(Weapon::getVampirism)
+                .sum();
+
+        var vampirismValue = vampirism + vampirismSum;
         if (vampirismValue <= 0) setVampirism(0);
         else setVampirism(vampirismValue);
     }

@@ -36,7 +36,11 @@ public class Healer extends Warrior implements CanHeal {
     @Override
     public void equipWeapon(Weapon weapon) {
         super.equipWeapon(weapon);
-        setHealing(getHealValue() + weapon.getHealPower());
+
+        var healPowerSum = getWeapons().stream()
+                .mapToInt(Weapon::getHealPower)
+                .sum();
+        setHealing(HEALING + healPowerSum);
     }
 
     public void setHealing(int healing) {

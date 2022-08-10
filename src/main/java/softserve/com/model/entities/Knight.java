@@ -9,12 +9,7 @@ public class Knight extends Warrior {
     }
 
     @Override
-    public void equipWeapon(Weapon weapon) {
-        super.equipWeapon(weapon);
-    }
-
-    @Override
     public int getAttack() {
-        return ATTACK;
+        return attack;
     }
 }

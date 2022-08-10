@@ -33,7 +33,7 @@ public class WeaponsTest {
         ogre.equipWeapon(sword);
         ogre.equipWeapon(shield);
         ogre.equipWeapon(superWeapon);
-        lancelot.equipWeapon(superWeapon);
+
         richard.equipWeapon(shield);
         eric.equipWeapon(superWeapon);
         freelancer.equipWeapon(axe);
@@ -42,6 +42,7 @@ public class WeaponsTest {
         priest.equipWeapon(shield);
 
         assertEquals(125, ogre.getHealth());
+        lancelot.equipWeapon(superWeapon);
         assertEquals(17, lancelot.getAttack());
         assertEquals(4, richard.getDefence());
         assertEquals(200, eric.getVampirismLevel());
