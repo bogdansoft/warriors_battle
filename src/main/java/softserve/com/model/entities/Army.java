@@ -23,4 +23,9 @@ public class Army {
     public List<Unit> getWarriors() {
         return this.warriors;
     }
+
+    public void equipWarriorAtPosition(int index, Weapon weapon) {
+        var warriorFromArmy = (Warrior) this.warriors.get(index);
+        warriorFromArmy.equipWeapon(weapon);
+    }
 }

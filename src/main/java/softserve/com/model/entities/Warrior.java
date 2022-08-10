@@ -2,12 +2,21 @@ package softserve.com.model.entities;
 
 import softserve.com.model.interfaces.Unit;
 import softserve.com.model.interfaces.WarriorInterface;
+import softserve.com.model.interfaces.WeaponInterface;
 
-public class Warrior implements Unit, WarriorInterface {
+public class Warrior implements Unit, WarriorInterface, WeaponInterface {
     protected static final int ATTACK = 5;
     public static final int INITIAL_HEALTH = 50;
-    int attack;
+    /*public static final int DEFENCE = 0;
+    public static final int VAMPIRISM = 0;
+    public static final int HEALPOWER = 0;*/
+
+
+    public int attack = ATTACK;
     private int health = INITIAL_HEALTH;
+    /*private int defense = DEFENCE;
+    private int vampirism = VAMPIRISM;
+    private int healPower = HEALPOWER;*/
     private Warrior nextWarrior = null;
     private Warrior frontWarrior = null;
 
@@ -36,9 +45,39 @@ public class Warrior implements Unit, WarriorInterface {
         this.health = health;
     }
 
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+/*    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public int getVampirism() {
+        return vampirism;
+    }
+
+    public void setVampirism(int vampirism) {
+        this.vampirism = vampirism;
+    }
+
+    public int getHealPower() {
+        return healPower;
+    }
+
+    public void setHealPower(int healPower) {
+        this.healPower = healPower;
+    }
+
+    */
+
     @Override
     public int getAttack() {
-        return ATTACK;
+        return attack;
     }
 
     @Override
@@ -64,6 +103,12 @@ public class Warrior implements Unit, WarriorInterface {
     @Override
     public void setFrontWarrior(Warrior frontWarrior) {
         this.frontWarrior = frontWarrior;
+    }
+
+    @Override
+    public void equipWeapon(Weapon weapon) {
+        setHealth(getHealth() + weapon.getHealth());
+        setAttack(getAttack() + weapon.getAttack());
     }
 
     @Override

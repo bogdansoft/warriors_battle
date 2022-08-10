@@ -22,6 +22,19 @@ public class Vampire extends Warrior implements HasVampirism {
         }
     }
 
+    public void setVampirism(int vampirism) {
+        this.vampirism = vampirism;
+    }
+
+    @Override
+    public void equipWeapon(Weapon weapon) {
+        super.equipWeapon(weapon);
+
+        var vampirismValue = getVampirismLevel() + weapon.getVampirism();
+        if (vampirismValue <= 0) setVampirism(0);
+        else setVampirism(vampirismValue);
+    }
+
     @Override
     public int healHimself() {
         return getAttack() * getVampirismLevel();

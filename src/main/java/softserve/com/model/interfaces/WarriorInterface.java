@@ -3,6 +3,7 @@ package softserve.com.model.interfaces;
 import softserve.com.model.damage.SimpleDamage;
 import softserve.com.model.damage.interfaces.Damage;
 import softserve.com.model.entities.Warrior;
+import softserve.com.model.entities.Weapon;
 
 public interface WarriorInterface extends CanAttack, HasHealth {
     void process(WarriorInterface warrior);
@@ -12,12 +13,12 @@ public interface WarriorInterface extends CanAttack, HasHealth {
     }
 
     default void receiveDamage(Damage damage) {
-        setHealth(getHealth()- damage.hitPoints());
+        setHealth(getHealth() - damage.hitPoints());
     }
 
     Warrior getNextWarrior();
 
-     void setNextWarrior(Warrior nextBehind);
+    void setNextWarrior(Warrior nextBehind);
 
     Warrior getFrontWarrior();
 

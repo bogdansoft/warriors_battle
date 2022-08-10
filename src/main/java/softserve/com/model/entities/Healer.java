@@ -8,6 +8,8 @@ public class Healer extends Warrior implements CanHeal {
     private static final int ATTACK = 0;
     private static final int HEALING = 2;
 
+    private int healing = HEALING;
+
     public Healer() {
         super(INITIAL_HEALTH, ATTACK);
     }
@@ -29,6 +31,16 @@ public class Healer extends Warrior implements CanHeal {
             heal(getFrontWarrior());
         }
         super.process(warrior);
+    }
+
+    @Override
+    public void equipWeapon(Weapon weapon) {
+        super.equipWeapon(weapon);
+        setHealing(getHealValue() + weapon.getHealPower());
+    }
+
+    public void setHealing(int healing) {
+        this.healing = healing;
     }
 
     @Override
