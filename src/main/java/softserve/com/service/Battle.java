@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import softserve.com.model.entities.Army;
 import softserve.com.model.entities.Warrior;
-import softserve.com.model.interfaces.Unit;
 
 public class Battle {
     private static final Logger LOGGER = LoggerFactory.getLogger(Battle.class);
@@ -74,13 +73,20 @@ public class Battle {
     }
 
     public static boolean straightFight(Army attackers, Army defenders) {
-        var moreWarriorsInArmy = Math.max(attackers.getWarriors().size(), defenders.getWarriors().size());
-        for (int i = 0; i < moreWarriorsInArmy; i++) {
-            fight((Warrior) attackers.getWarriors().get(i), (Warrior) defenders.getWarriors().get(i));
-            attackers.getWarriors().removeIf(Unit::isUnitAlive);
-            defenders.getWarriors().removeIf(Unit::isUnitAlive);
+        LOGGER.debug("Straight fight has been started");
+        var currentWarriorAttacker = attackers.getWarriors().get(0);
+        var currentWarriorDefender = defenders.getWarriors().get(0);
+
+        if (currentWarriorAttacker != null && currentWarriorDefender != null) {
+            var resultFight = fight((Warrior) currentWarriorAttacker, (Warrior) currentWarriorDefender);
+            if (resultFight) {
+                defenders.getWarriors().removeIf(w -> !w.isUnitAlive());
+            } else {
+                attackers.getWarriors().removeIf(w -> !w.isUnitAlive());
+            }
         }
 
+        LOGGER.debug("Straight fight has been completed");
         return attackers.getWarriors().size() > defenders.getWarriors().size();
     }
 }
