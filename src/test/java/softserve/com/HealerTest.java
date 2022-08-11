@@ -78,9 +78,9 @@ public class HealerTest {
         assertTrue(Battle.fight(ogre, adam));
         assertTrue(Battle.fight(freelancer, vampire));
         assertTrue(freelancer.isAlive());
-        assertEquals(20, freelancer.getHealth());
+        assertEquals(26, freelancer.getHealth());
         priest.heal(freelancer);
-        assertEquals(22, freelancer.getHealth());
+        assertEquals(28, freelancer.getHealth());
 
         var my_army = new Army();
         my_army.addUnits(Defender::new, 2);

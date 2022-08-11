@@ -8,10 +8,8 @@ public class Healer extends Warrior implements CanHeal {
     private static final int INITIAL_HEALTH = 60;
     private static final int ATTACK = 0;
     private static final int HEALING = 2;
-    private int attack = ATTACK;
-    private int health = INITIAL_HEALTH;
-
     private int healing = HEALING;
+    private int health = INITIAL_HEALTH;
 
     public Healer() {
         super(INITIAL_HEALTH, ATTACK);
@@ -46,19 +44,10 @@ public class Healer extends Warrior implements CanHeal {
         setHealing(HEALING + healPowerSum);
     }
 
-    @Override
-    public int getHealth() {
-        return health;
-    }
-
     public void setHealing(int healing) {
         this.healing = healing;
     }
 
-    @Override
-    public int getAttack() {
-        return attack;
-    }
 
     public int getHealValue() {
         return healing;

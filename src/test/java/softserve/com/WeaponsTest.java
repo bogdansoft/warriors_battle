@@ -48,9 +48,9 @@ import static softserve.com.service.Battle.fight;
         assertEquals(15, freelancer.getHealth());
         assertEquals(5, priest.getHealValue());
 
-        assertFalse(fight(ogre, eric));
+        assertTrue(fight(ogre, eric));
         assertFalse(fight(priest, richard));
-        assertFalse(fight(lancelot, freelancer));
+        assertTrue(fight(lancelot, freelancer));
 
         var myArmy = new Army();
         myArmy.addUnits(Knight::new, 1);

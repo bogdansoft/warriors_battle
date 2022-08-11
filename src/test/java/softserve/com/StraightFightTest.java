@@ -88,9 +88,9 @@ class StraightFightTest {
                 () -> assertTrue(fight(ogre, adam)),
                 () -> assertTrue(fight(freelancer, vampire)),
                 () -> assertTrue(freelancer.isAlive()),
-                () -> assertEquals(20, freelancer.getHealth()),
+                () -> assertEquals(26, freelancer.getHealth()),
                 () -> priest.heal(freelancer),
-                () -> assertEquals(22, freelancer.getHealth()),
+                () -> assertEquals(28, freelancer.getHealth()),
                 () -> assertFalse(fight(myArmy, enemyArmy)),
                 () -> assertFalse(fight(army3, army4)),
                 () -> assertFalse(Battle.straightFight(army5, army6))
