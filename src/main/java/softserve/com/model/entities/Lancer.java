@@ -31,6 +31,6 @@ public class Lancer extends Warrior {
 
     @Override
     public int getAttack() {
-        return ATTACK;
+        return attack;
     }
 }

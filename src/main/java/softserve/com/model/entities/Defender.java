@@ -10,7 +10,6 @@ public class Defender extends Warrior implements CanDefend {
     public static final int DEFENSE = 2;
     private int attack = ATTACK;
     private int health = INITIAL_HEALTH;
-
     private int defense = DEFENSE;
 
     public Defender() {

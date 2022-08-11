@@ -34,10 +34,17 @@ public class Battle {
                     warrior2.getClass().getSimpleName(),
                     warrior2.getHealth()
             );
-
+            LOGGER.debug("Before hit warrior {} has health {}",
+                    warrior1.getClass().getSimpleName(),
+                    warrior1.getHealth()
+            );
             if (warrior2.isAlive()) {
                 warrior2.hit(warrior1);
             }
+            LOGGER.debug("After hit warrior {} has health {}",
+                    warrior1.getClass().getSimpleName(),
+                    warrior1.getHealth()
+            );
         }
         LOGGER.debug("Battle between {} and {} have been completed, health after the fight of first = {}  health after the fight of second = {}",
                 warrior1.getClass().getSimpleName(),
