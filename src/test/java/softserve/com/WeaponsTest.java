@@ -7,7 +7,7 @@ import softserve.com.model.entities.weapons.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static softserve.com.service.Battle.fight;
 
-public class WeaponsTest {
+ class WeaponsTest {
     @Test
     void smokeTest() {
         var ogre = new Warrior();
@@ -30,10 +30,10 @@ public class WeaponsTest {
                 .vampirism(150)
                 .healPower(8).build();
 
-        /*ogre.equipWeapon(sword);
+        ogre.equipWeapon(sword);
         ogre.equipWeapon(shield);
         ogre.equipWeapon(superWeapon);
-
+        lancelot.equipWeapon(superWeapon);
         richard.equipWeapon(shield);
         eric.equipWeapon(superWeapon);
         freelancer.equipWeapon(axe);
@@ -41,8 +41,7 @@ public class WeaponsTest {
         priest.equipWeapon(wand);
         priest.equipWeapon(shield);
 
-        assertEquals(125, ogre.getHealth());*/
-        lancelot.equipWeapon(superWeapon);
+        assertEquals(125, ogre.getHealth());
         assertEquals(17, lancelot.getAttack());
         assertEquals(4, richard.getDefence());
         assertEquals(200, eric.getVampirismLevel());

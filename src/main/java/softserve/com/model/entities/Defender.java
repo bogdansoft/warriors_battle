@@ -40,11 +40,11 @@ public class Defender extends Warrior implements CanDefend {
 
     @Override
     public int getAttack() {
-        return ATTACK;
+        return attack;
     }
 
     @Override
     public int getDefence() {
-        return DEFENSE;
+        return defense;
     }
 }

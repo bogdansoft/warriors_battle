@@ -42,11 +42,11 @@ public class Vampire extends Warrior implements HasVampirism {
 
     @Override
     public int healHimself() {
-        return getAttack() * getVampirismLevel();
+        return getAttack() * getVampirismLevel() / 100;
     }
 
     @Override
     public int getVampirismLevel() {
-        return vampirism / 100;
+        return vampirism;
     }
 }

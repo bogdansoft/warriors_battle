@@ -92,7 +92,7 @@ public class Warrior implements Unit, WarriorInterface, WeaponInterface {
         var attackSum = weapons.stream()
                 .mapToInt(Weapon::getAttack)
                 .sum();
-        setAttack(ATTACK + attackSum);
+        setAttack(getAttack() + attackSum);
     }
 
     @Override
