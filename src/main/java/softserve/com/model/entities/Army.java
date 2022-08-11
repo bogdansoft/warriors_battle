@@ -1,5 +1,6 @@
 package softserve.com.model.entities;
 
+import softserve.com.model.entities.weapons.Weapon;
 import softserve.com.model.interfaces.Unit;
 
 import java.util.ArrayList;

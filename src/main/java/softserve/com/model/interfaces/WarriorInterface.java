@@ -3,7 +3,6 @@ package softserve.com.model.interfaces;
 import softserve.com.model.damage.SimpleDamage;
 import softserve.com.model.damage.interfaces.Damage;
 import softserve.com.model.entities.Warrior;
-import softserve.com.model.entities.Weapon;
 
 public interface WarriorInterface extends CanAttack, HasHealth {
     void process(WarriorInterface warrior);

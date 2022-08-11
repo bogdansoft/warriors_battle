@@ -1,7 +1,6 @@
 package softserve.com.model.entities.weapons;
 
 import lombok.*;
-import softserve.com.model.entities.Weapon;
 
 @Data
 @AllArgsConstructor

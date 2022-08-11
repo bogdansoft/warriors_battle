@@ -1,5 +1,6 @@
 package softserve.com.model.entities;
 
+import softserve.com.model.entities.weapons.Weapon;
 import softserve.com.model.interfaces.CanHeal;
 import softserve.com.model.interfaces.WarriorInterface;
 
@@ -7,6 +8,8 @@ public class Healer extends Warrior implements CanHeal {
     private static final int INITIAL_HEALTH = 60;
     private static final int ATTACK = 0;
     private static final int HEALING = 2;
+    private int attack = ATTACK;
+    private int health = INITIAL_HEALTH;
 
     private int healing = HEALING;
 
@@ -43,6 +46,11 @@ public class Healer extends Warrior implements CanHeal {
         setHealing(HEALING + healPowerSum);
     }
 
+    @Override
+    public int getHealth() {
+        return health;
+    }
+
     public void setHealing(int healing) {
         this.healing = healing;
     }
@@ -53,6 +61,6 @@ public class Healer extends Warrior implements CanHeal {
     }
 
     public int getHealValue() {
-        return HEALING;
+        return healing;
     }
 }

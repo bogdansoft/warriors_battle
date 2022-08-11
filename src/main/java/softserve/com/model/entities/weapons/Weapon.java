@@ -1,4 +1,4 @@
-package softserve.com.model.entities;
+package softserve.com.model.entities.weapons;
 
 import lombok.*;
 
