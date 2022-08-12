@@ -58,6 +58,10 @@ public class Battle {
 
     public static boolean fight(Army attackerArmy, Army defenderArmy) {
         LOGGER.debug("Armies battle have been started");
+
+        attackerArmy.moveUnits();
+        defenderArmy.moveUnits();
+
         int lengthFirstArmy = attackerArmy.getWarriors().size() - 1;
         int lengthSecondArmy = defenderArmy.getWarriors().size() - 1;
 
@@ -70,8 +74,12 @@ public class Battle {
         while (warriorAttacker.isUnitAlive() && warriorDefender.isUnitAlive()) {
             if (fight((Warrior) attackerArmy.getWarriors().get(cursorFirstArmy),
                     (Warrior) defenderArmy.getWarriors().get(cursorSecondArmy))) {
+                defenderArmy.getWarriors().remove(cursorSecondArmy);
+                defenderArmy.moveUnits();
                 cursorSecondArmy++;
             } else {
+                attackerArmy.getWarriors().remove(cursorFirstArmy);
+                attackerArmy.moveUnits();
                 cursorFirstArmy++;
             }
         }
@@ -81,6 +89,10 @@ public class Battle {
 
     public static boolean straightFight(Army attackers, Army defenders) {
         LOGGER.debug("Straight fight has been started");
+
+        attackers.moveUnits();
+        defenders.moveUnits();
+
         var currentWarriorAttacker = attackers.getWarriors().get(0);
         var currentWarriorDefender = defenders.getWarriors().get(0);
 
@@ -88,8 +100,10 @@ public class Battle {
             var resultFight = fight((Warrior) currentWarriorAttacker, (Warrior) currentWarriorDefender);
             if (resultFight) {
                 defenders.getWarriors().removeIf(w -> !w.isUnitAlive());
+                defenders.moveUnits();
             } else {
                 attackers.getWarriors().removeIf(w -> !w.isUnitAlive());
+                attackers.moveUnits();
             }
         }
 
