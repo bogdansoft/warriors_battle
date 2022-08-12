@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class VampireTest {
+class VampireTest {
 
     private static Stream<Arguments> provideWarriorTypes() {
         //Given

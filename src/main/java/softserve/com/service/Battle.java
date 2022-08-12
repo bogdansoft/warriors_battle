@@ -74,11 +74,9 @@ public class Battle {
         while (warriorAttacker.isUnitAlive() && warriorDefender.isUnitAlive()) {
             if (fight((Warrior) attackerArmy.getWarriors().get(cursorFirstArmy),
                     (Warrior) defenderArmy.getWarriors().get(cursorSecondArmy))) {
-                defenderArmy.getWarriors().remove(cursorSecondArmy);
                 defenderArmy.moveUnits();
                 cursorSecondArmy++;
             } else {
-                attackerArmy.getWarriors().remove(cursorFirstArmy);
                 attackerArmy.moveUnits();
                 cursorFirstArmy++;
             }
