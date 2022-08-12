@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class Army {
     private List<Unit> warriors;
@@ -67,34 +68,46 @@ public class Army {
                 );
     }
 
-    public void moveHealerAfterLancerOFArmy() {
-        if (this.isHealerInArmy()) {
-            var healer = this.getWarriors().stream()
-                    .filter(w -> w.getClass().getSimpleName().equalsIgnoreCase("healer"))
-                    .findFirst()
-                    .orElseThrow(NoSuchElementException::new);
-            this.getWarriors().remove(healer);
-            this.getWarriors().add(1, new Healer());
+    public void moveHealerAfterLancerInArmy() {
+        var healersQuantityInArmy = this.getWarriors().stream()
+                .filter(
+                        w -> w.getClass().getSimpleName().equalsIgnoreCase("healer")
+                ).count();
+
+        List<Unit> healersList = new ArrayList<>();
+
+        if (healersQuantityInArmy > 0) {
+            for (int i = 0; i < this.getWarriors().size(); i++) {
+                var value = this.getWarriors().get(i);
+
+                if (value.getClass().getSimpleName().equalsIgnoreCase("healer")) {
+                    healersList.add(value);
+                    this.getWarriors().remove(value);
+                }
+            }
         }
+        this.getWarriors().addAll(1, healersList);
     }
 
     public void moveWarlordToTheEndOFArmy() {
-        if (this.isWarlordInArmy()) {
+        if (!(this.getWarriors().get(getWarriors().size() - 1) instanceof Healer)) {
             var warlord = this.getWarriors().stream()
                     .filter(w -> w.getClass().getSimpleName().equalsIgnoreCase("warlord"))
                     .findFirst()
                     .orElseThrow(NoSuchElementException::new);
+
             this.getWarriors().remove(warlord);
             this.getWarriors().add(new Warlord());
         }
     }
 
     public void moveLancerToFrontOFArmy() {
-        if (this.isLancerInArmy()) {
+        if (!(this.getWarriors().get(0) instanceof Lancer)) {
             var lancer = this.getWarriors().stream()
                     .filter(w -> w.getClass().getSimpleName().equalsIgnoreCase("lancer"))
                     .findFirst()
                     .orElseThrow(NoSuchElementException::new);
+
             this.getWarriors().remove(lancer);
             this.getWarriors().add(0, new Lancer());
         }
@@ -103,10 +116,11 @@ public class Army {
     public void moveUnits() {
         if (this.isWarlordInArmy()) {
             moveWarlordToTheEndOFArmy();
-            if(this.isLancerInArmy()){
+            if (this.isLancerInArmy()) {
                 moveLancerToFrontOFArmy();
-            } else if (this.isHealerInArmy()) {
-                moveHealerAfterLancerOFArmy();
+            }
+            if (this.isHealerInArmy()) {
+                moveHealerAfterLancerInArmy();
             }
         }
     }
@@ -115,13 +129,15 @@ public class Army {
         Army army = new Army();
         army.addUnits(Warrior::new, 2);
         army.addUnits(Warlord::new, 1);
-        army.addUnits(Healer::new, 1);
+        army.addUnits(Healer::new, 3);
         army.addUnits(Lancer::new, 3);
         army.addUnits(Knight::new, 1);
-        army.moveLancerToFrontOFArmy();
+        /*army.moveLancerToFrontOFArmy();
         army.moveHealerAfterLancerOFArmy();
-        army.moveWarlordToTheEndOFArmy();
-        System.out.println(army.getWarriors().toString());
+        army.moveWarlordToTheEndOFArmy();*/
+        army.moveUnits();
+        army.getWarriors().forEach(v -> System.out.println(v.toString()));
+        //System.out.println(army.getWarriors().toString());
         /*var lancerQuantity = army.getWarriors().stream()
                 .filter(w -> w.getClass().getSimpleName().equalsIgnoreCase("lancer"))
                 .count();
