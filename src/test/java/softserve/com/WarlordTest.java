@@ -197,7 +197,7 @@ class WarlordTest {
         army_1.moveUnits();
         army_2.moveUnits();
 
-        var result = Battle.fight(army_1, army_2);
+        var result = straightFight(army_1, army_2);
 
         //Then
         assertTrue(result);
@@ -385,6 +385,32 @@ class WarlordTest {
                                 .addUnits(Vampire::new, 6)
                                 .addUnits(Lancer::new, 4),
                         false
+                ),
+                Arguments.of(
+                        new Army()
+                                .addUnits(Warlord::new, 1)
+                                .addUnits(Warrior::new, 2)
+                                .addUnits(Lancer::new, 2)
+                                .addUnits(Healer::new, 2),
+                        new Army()
+                                .addUnits(Warlord::new, 1)
+                                .addUnits(Vampire::new, 1)
+                                .addUnits(Healer::new, 2)
+                                .addUnits(Knight::new, 2),
+                        true
+                ),
+                Arguments.of(
+                        new Army()
+                                .addUnits(Warrior::new, 2)
+                                .addUnits(Lancer::new, 2)
+                                .addUnits(Defender::new, 1)
+                                .addUnits(Warlord::new, 3),
+                        new Army()
+                                .addUnits(Warlord::new, 2)
+                                .addUnits(Vampire::new, 1)
+                                .addUnits(Healer::new, 5)
+                                .addUnits(Knight::new, 2),
+                        true
                 )
         );
     }
@@ -399,60 +425,31 @@ class WarlordTest {
         //Then
         assertEquals(expected, actual);
     }
-}
-/*
 
- "23. Battle": [
-        prepare_test(middle_code='''army_1 = Army()
-army_2 = Army()
-army_1.add_units(Warlord, 1)
-army_1.add_units(Warrior, 2)
-army_1.add_units(Lancer, 2)
-army_1.add_units(Healer, 2)
-army_2.add_units(Warlord, 1)
-army_2.add_units(Vampire, 1)
-army_2.add_units(Healer, 2)
-army_2.add_units(Knight, 2)
-army_1.move_units()
-army_2.move_units()
-battle = Battle()''',
-                     test="battle.fight(army_1, army_2)",
-                     answer=True)
-                ],
-    "24. Battle": [
-        prepare_test(middle_code='''army_1 = Army()
-army_2 = Army()
-army_1.add_units(Warrior, 2)
-army_1.add_units(Lancer, 2)
-army_1.add_units(Defender, 1)
-army_1.add_units(Warlord, 3)
-army_2.add_units(Warlord, 2)
-army_2.add_units(Vampire, 1)
-army_2.add_units(Healer, 5)
-army_2.add_units(Knight, 2)
-army_1.move_units()
-army_2.move_units()
-battle = Battle()''',
-                     test="battle.fight(army_1, army_2)",
-                     answer=False)
-                ],
-    "25. Battle": [
-        prepare_test(middle_code='''army_1 = Army()
-army_2 = Army()
-army_1.add_units(Warrior, 2)
-army_1.add_units(Lancer, 3)
-army_1.add_units(Defender, 1)
-army_1.add_units(Warlord, 4)
-army_2.add_units(Warlord, 1)
-army_2.add_units(Vampire, 1)
-army_2.add_units(Rookie, 1)
-army_2.add_units(Knight, 1)
-army_1.units[0].equip_weapon(Sword())
-army_2.units[0].equip_weapon(Shield())
-army_1.move_units()
-army_2.move_units()
-battle = Battle()''',
-                     test="battle.fight(army_1, army_2)",
-                     answer=True)
-                ],
-        */
+    @Test
+    @DisplayName("Fight of two armies with weapons")
+    void fightOfTwoArmiesWithWeapons() {
+        //Given
+        var army_1 = new Army();
+        var army_2 = new Army();
+        army_1.addUnits(Warrior::new, 2);
+        army_1.addUnits(Lancer::new, 3);
+        army_1.addUnits(Defender::new, 1);
+        army_1.addUnits(Warlord::new, 4);
+        army_2.addUnits(Warlord::new, 1);
+        army_2.addUnits(Vampire::new, 1);
+        army_2.addUnits(Rookie::new, 1);
+        army_2.addUnits(Knight::new, 1);
+        army_1.equipWarriorAtPosition(0, new Sword());
+        army_2.equipWarriorAtPosition(0, new Shield());
+
+        //When
+        army_1.moveUnits();
+        army_2.moveUnits();
+
+        var result = fight(army_1, army_2);
+
+        //Then
+        assertTrue(result);
+    }
+}
