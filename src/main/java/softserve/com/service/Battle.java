@@ -8,6 +8,7 @@ import softserve.com.model.entities.Warrior;
 public class Battle {
     private static final Logger LOGGER = LoggerFactory.getLogger(Battle.class);
 
+
     private Battle() {
         throw new UnsupportedOperationException("Utility class");
     }

@@ -6,12 +6,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import softserve.com.model.entities.*;
-import softserve.com.service.Battle;
 
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static softserve.com.service.Battle.fight;
 
 class LancerTest {
 
@@ -24,8 +24,8 @@ class LancerTest {
         var knight = new Knight();
 
         //When
-        Battle.fight(lancer, warrior);
-        var result = Battle.fight(lancer, knight);
+        fight(lancer, warrior);
+        var result = fight(lancer, knight);
 
         //Then
         assertFalse(result);
@@ -50,7 +50,7 @@ class LancerTest {
     @DisplayName("Smoke test of battles between warriors")
     void smokeTestWarriorBattles(Warrior warrior1, Warrior warrior2, boolean expected) {
         //When
-        var actual = Battle.fight(warrior1, warrior2);
+        var actual = fight(warrior1, warrior2);
 
         //Then
         assertEquals(expected, actual);
@@ -247,7 +247,7 @@ class LancerTest {
     @DisplayName("Smoke test of battles between armies")
     void smokeTestWarriorArmies(Army army1, Army army2, boolean expected) {
         //When
-        var actual = Battle.fight(army1, army2);
+        var actual = fight(army1, army2);
 
         //Then
         assertEquals(expected, actual);
