@@ -1,10 +1,11 @@
 package softserve.com.model.entities;
 
+import softserve.com.model.damage.interfaces.Damage;
 import softserve.com.model.entities.weapons.Weapon;
 import softserve.com.model.interfaces.CanDefend;
-import softserve.com.model.damage.interfaces.Damage;
+import softserve.com.model.interfaces.WerewolfState;
 
-public class Defender extends Warrior implements CanDefend {
+public class Defender extends Warrior implements WerewolfState, CanDefend {
     protected static final int ATTACK = 3;
     public static final int INITIAL_HEALTH = 60;
     public static final int DEFENSE = 2;
@@ -45,5 +46,15 @@ public class Defender extends Warrior implements CanDefend {
     @Override
     public int getDefence() {
         return defense;
+    }
+
+    @Override
+    public int getVampirismLevel() {
+        return 0;
+    }
+
+    @Override
+    public int healHimself() {
+        return 0;
     }
 }

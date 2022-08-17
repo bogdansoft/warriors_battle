@@ -3,8 +3,9 @@ package softserve.com.model.entities;
 import softserve.com.model.entities.weapons.Weapon;
 import softserve.com.model.interfaces.HasVampirism;
 import softserve.com.model.interfaces.WarriorInterface;
+import softserve.com.model.interfaces.WerewolfState;
 
-public class Vampire extends Warrior implements HasVampirism {
+public class Vampire extends Warrior implements WerewolfState, HasVampirism {
     public static final int ATTACK = 4;
     public static final int INITIAL_HEALTH = 40;
     private int vampirism = 50;
@@ -48,5 +49,10 @@ public class Vampire extends Warrior implements HasVampirism {
     @Override
     public int getVampirismLevel() {
         return vampirism;
+    }
+
+    @Override
+    public int getDefence() {
+        return 0;
     }
 }
