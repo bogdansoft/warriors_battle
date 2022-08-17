@@ -4,12 +4,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softserve.com.model.day_time.Sun;
-import softserve.com.model.entities.Defender;
-import softserve.com.model.entities.Warrior;
 import softserve.com.model.entities.Werewolf;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static softserve.com.service.Battle.fight;
 
 class WerewolfTest {
     private static Sun sun;
@@ -66,22 +63,44 @@ class WerewolfTest {
     }
 
     @Test
-    @DisplayName("Get vampire type and fight against warrior, vampire should win")
-    void getVampireVsWarriorAndVampireWin() {
+    @DisplayName("Get vampire type and his values")
+    void getVampireValues() {
         //Given
         var werewolfVampire = new Werewolf(2);
-        var defender = new Defender();
 
         //When
         var result = werewolfVampire.getState().getClass().getSimpleName();
         var getHealth = werewolfVampire.getState().getHealth();
         var getAttack = werewolfVampire.getState().getAttack();
-        var fightResult = fight(defender,(Warrior) werewolfVampire.getState());
+        var getVampirism = werewolfVampire.getState().getVampirismLevel();
 
         //Then
-        assertEquals("Vampire", result);
-        assertEquals(40, getHealth);
-        assertEquals(4, getAttack);
-        assertTrue(fightResult);
+        assertAll(
+                () -> assertEquals("Vampire", result),
+                () -> assertEquals(40, getHealth),
+                () -> assertEquals(4, getAttack),
+                () -> assertEquals(50, getVampirism)
+        );
+    }
+
+    @Test
+    @DisplayName("Get defender type and his values")
+    void getDefenderValues() {
+        //Given
+        var werewolfDefender = new Werewolf(1);
+
+        //When
+        var result = werewolfDefender.getState().getClass().getSimpleName();
+        var getHealth = werewolfDefender.getState().getHealth();
+        var getAttack = werewolfDefender.getState().getAttack();
+        var getDefence = werewolfDefender.getState().getDefence();
+
+        //Then
+        assertAll(
+                () -> assertEquals("Defender", result),
+                () -> assertEquals(60, getHealth),
+                () -> assertEquals(3, getAttack),
+                () -> assertEquals(2, getDefence)
+        );
     }
 }
