@@ -289,6 +289,22 @@ class WarlordTest {
     }
 
     @Test
+    @DisplayName("Is warlord on the first place in army when there are no another attackers")
+    void isWarlordInArmyOnTheFirstPlaceAndIsTheOnlyOneAttacker() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Warlord::new, 1);
+        army.addUnits(Healer::new, 3);
+
+        //When
+        army.moveUnits();
+        var first = army.getWarriors().get(0).getClass().getSimpleName();
+
+        //Then
+        assertEquals("Warlord", first);
+    }
+
+    @Test
     @DisplayName("Warlord vs two warriors, warlord should win")
     void warlordVsTwoWarriors() {
         //Given

@@ -1,18 +1,12 @@
 package softserve.com;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import softserve.com.model.day_time.Sun;
-import softserve.com.model.entities.Army;
-import softserve.com.model.entities.Warrior;
-import softserve.com.model.entities.Werewolf;
+import softserve.com.model.entities.*;
 import softserve.com.model.entities.weapons.Katana;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static softserve.com.service.Battle.fight;
-import static softserve.com.service.Battle.straightFight;
+import static softserve.com.service.Battle.*;
 
 class WerewolfTest {
     private Sun sun;
@@ -106,8 +100,8 @@ class WerewolfTest {
     }
 
     @Test
-    @DisplayName("lkn")
-    void getWeaponTest() {
+    @DisplayName("Smoke test with weapons")
+    void weaponsBattleTest() {
         //Given
         Army army1 = new Army();
         Army army2 = new Army();
@@ -124,8 +118,8 @@ class WerewolfTest {
     }
 
     @Test
-    @DisplayName("lksdfn")
-    void getWeasdgfponTest() {
+    @DisplayName("Smoke test with weapons in straight fight")
+    void weaponsStraightBattleTest() {
         //Given
         Army army1 = new Army();
         Army army2 = new Army();
@@ -141,5 +135,3 @@ class WerewolfTest {
         assertFalse(result);
     }
 }
-
-//todo add tests for werewolf
