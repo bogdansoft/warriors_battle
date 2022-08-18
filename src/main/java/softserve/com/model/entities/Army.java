@@ -58,6 +58,7 @@ public class Army {
                 .filter(Vampire.class::isInstance)
                 .filter(Defender.class::isInstance)
                 .filter(Warrior.class::isInstance)
+                .filter(Werewolf.class::isInstance)
                 .collect(toCollection(ArrayList::new));
 
         return !getAllAttackers.isEmpty();
@@ -107,6 +108,7 @@ public class Army {
                     .filter(Vampire.class::isInstance)
                     .filter(Defender.class::isInstance)
                     .filter(Warrior.class::isInstance)
+                    .filter(Werewolf.class::isInstance)
                     .findFirst()
                     .orElseThrow(NoSuchElementException::new);
 

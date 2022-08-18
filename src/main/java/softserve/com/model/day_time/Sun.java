@@ -7,7 +7,7 @@ public class Sun {
     private DayType dayType;
 
     private Sun() {
-        this.dayType = DayType.valueOf(DayType.getDay(new Random().nextInt(2) + 1));
+        this.dayType = DayType.valueOf(DayType.setDayTime(new Random().nextInt(2) + 1));
     }
 
     public static Sun getInstance() {

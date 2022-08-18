@@ -33,7 +33,6 @@ class WarlordTest {
         myArmy.addUnits(Lancer::new, 2);
         myArmy.addUnits(Healer::new, 2);
 
-
         enemyArmy.addUnits(Warlord::new, 3);
         enemyArmy.addUnits(Vampire::new, 1);
         enemyArmy.addUnits(Healer::new, 2);
@@ -53,6 +52,139 @@ class WarlordTest {
                 () -> assertEquals(Knight.class, enemyArmy.getWarriors().get(enemyArmy.getWarriors().size() - 2).getClass()),
                 () -> assertEquals(6, enemyArmy.getWarriors().size()),
                 () -> assertTrue(fight(myArmy, enemyArmy)));
+    }
+
+    @Test
+    @DisplayName("Warlord values")
+    void warlordValues() {
+        //Given
+        var warlord = new Warlord();
+
+        //When
+        var className = warlord.getClass().getSimpleName().toLowerCase();
+        var getAttack = warlord.getAttack();
+        var getHealth = warlord.getHealth();
+        var getDefense = warlord.getDefence();
+
+        //Then
+        assertAll(
+                () -> assertEquals("warlord", className),
+                () -> assertEquals(4, getAttack),
+                () -> assertEquals(100, getHealth),
+                () -> assertEquals(2, getDefense)
+        );
+    }
+
+    @Test
+    @DisplayName("Is warlord in army")
+    void isWarlordInArmy() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Warlord::new, 1);
+        army.addUnits(Defender::new, 11);
+        army.addUnits(Warrior::new, 12);
+
+        //When
+        var result = army.isWarlordInArmy();
+
+        //Then
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Is lancer in army")
+    void isLancerInArmy() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Warlord::new, 1);
+        army.addUnits(Lancer::new, 3);
+        army.addUnits(Defender::new, 11);
+        army.addUnits(Warrior::new, 12);
+
+        //When
+        var result = army.isLancerInArmy();
+
+        //Then
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Is healer in army")
+    void isHealerInArmy() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Warlord::new, 1);
+        army.addUnits(Lancer::new, 3);
+        army.addUnits(Healer::new, 3);
+        army.addUnits(Defender::new, 11);
+        army.addUnits(Warrior::new, 12);
+
+        //When
+        var result = army.isHealerInArmy();
+
+        //Then
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Is warlord on the last place in army")
+    void isWarlordInArmyOnTheLastPlace() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Warlord::new, 1);
+        army.addUnits(Defender::new, 11);
+        army.addUnits(Warrior::new, 12);
+
+        //When
+        army.moveUnits();
+        var lastIndex = army.getWarriors().size() - 1;
+        var result = army.getWarriors().get(lastIndex).getClass().getSimpleName();
+
+        //Then
+        assertEquals("Warlord", result);
+    }
+
+    @Test
+    @DisplayName("Is lancer on the first place in army")
+    void isLancerInArmyOnTheFirstPlace() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Warlord::new, 1);
+        army.addUnits(Lancer::new, 1);
+        army.addUnits(Defender::new, 11);
+        army.addUnits(Warrior::new, 12);
+
+        //When
+        army.moveUnits();
+        var result = army.getWarriors().get(0).getClass().getSimpleName();
+
+        //Then
+        assertEquals("Lancer", result);
+    }
+
+    @Test
+    @DisplayName("Is healers on the second, third, fourth places in army")
+    void isHealersInArmyOnTheSecondPlace() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Warlord::new, 1);
+        army.addUnits(Lancer::new, 1);
+        army.addUnits(Defender::new, 11);
+        army.addUnits(Healer::new, 3);
+        army.addUnits(Warrior::new, 12);
+
+        //When
+        army.moveUnits();
+        var first = army.getWarriors().get(1).getClass().getSimpleName();
+        var second = army.getWarriors().get(2).getClass().getSimpleName();
+        var third = army.getWarriors().get(3).getClass().getSimpleName();
+
+        //Then
+        assertAll(
+                () -> assertEquals("Healer", first),
+                () -> assertEquals("Healer", second),
+                () -> assertEquals("Healer", third)
+        );
     }
 
     @Test

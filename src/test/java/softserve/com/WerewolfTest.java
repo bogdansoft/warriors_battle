@@ -1,26 +1,37 @@
 package softserve.com;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softserve.com.model.day_time.Sun;
+import softserve.com.model.entities.Army;
+import softserve.com.model.entities.Warrior;
 import softserve.com.model.entities.Werewolf;
+import softserve.com.model.entities.weapons.Katana;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static softserve.com.service.Battle.fight;
+import static softserve.com.service.Battle.straightFight;
 
 class WerewolfTest {
     private static Sun sun;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void beforeEach() {
         sun = Sun.getInstance();
+    }
+
+    @AfterEach
+    void afterEach() {
+        sun = null;
     }
 
     @Test
     @DisplayName("Get day from day type")
     void getDayType() {
         //When
-        var result = sun.getDayType().getDay(1);
+        var result = sun.getDayType().setDayTime(1);
 
         //Then
         assertTrue(result.equalsIgnoreCase("day"));
@@ -30,36 +41,10 @@ class WerewolfTest {
     @DisplayName("Get night from day type")
     void getNightType() {
         //When
-        var result = sun.getDayType().getDay(2);
+        var result = sun.getDayType().setDayTime(2);
 
         //Then
         assertTrue(result.equalsIgnoreCase("night"));
-    }
-
-    @Test
-    @DisplayName("Get defender type")
-    void getDefenderType() {
-        //Given
-        var werewolf = new Werewolf(1);
-
-        //When
-        var result = werewolf.getState().getClass().getSimpleName();
-
-        //Then
-        assertEquals("Defender", result);
-    }
-
-    @Test
-    @DisplayName("Get vampire type")
-    void getVampireType() {
-        //Given
-        var werewolf = new Werewolf(2);
-
-        //When
-        var result = werewolf.getState().getClass().getSimpleName();
-
-        //Then
-        assertEquals("Vampire", result);
     }
 
     @Test
@@ -70,9 +55,9 @@ class WerewolfTest {
 
         //When
         var result = werewolfVampire.getState().getClass().getSimpleName();
-        var getHealth = werewolfVampire.getState().getHealth();
-        var getAttack = werewolfVampire.getState().getAttack();
-        var getVampirism = werewolfVampire.getState().getVampirismLevel();
+        var getHealth = werewolfVampire.getHealth();
+        var getAttack = werewolfVampire.getAttack();
+        var getVampirism = werewolfVampire.getVampirismLevel();
 
         //Then
         assertAll(
@@ -91,9 +76,9 @@ class WerewolfTest {
 
         //When
         var result = werewolfDefender.getState().getClass().getSimpleName();
-        var getHealth = werewolfDefender.getState().getHealth();
-        var getAttack = werewolfDefender.getState().getAttack();
-        var getDefence = werewolfDefender.getState().getDefence();
+        var getHealth = werewolfDefender.getHealth();
+        var getAttack = werewolfDefender.getAttack();
+        var getDefence = werewolfDefender.getDefence();
 
         //Then
         assertAll(
@@ -103,4 +88,60 @@ class WerewolfTest {
                 () -> assertEquals(2, getDefence)
         );
     }
+
+    @Test
+    @DisplayName("iihkj")
+    void getBattleTest() {
+        //Given
+        Army army1 = new Army();
+        Army army2 = new Army();
+        army1.addUnits(Warrior::new, 1);
+        army2.addUnits(Werewolf::new, 2);
+
+        //When
+        var result = fight(army1, army2);
+
+        //Then
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("lkn")
+    void getWeaponTest() {
+        //Given
+        Army army1 = new Army();
+        Army army2 = new Army();
+        army1.addUnits(Warrior::new, 1);
+        army2.addUnits(Werewolf::new, 2);
+        army1.equipWarriorAtPosition(0, new Katana());
+        army2.equipWarriorAtPosition(0, new Katana());
+
+        //When
+        var result = fight(army1, army2);
+
+        //Then
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("lksdfn")
+    void getWeasdgfponTest() {
+        //Given
+        Army army1 = new Army();
+        Army army2 = new Army();
+        army1.addUnits(Warrior::new, 1);
+        army2.addUnits(Werewolf::new, 2);
+        army1.equipWarriorAtPosition(0, new Katana());
+        army2.equipWarriorAtPosition(0, new Katana());
+
+        //When
+        var result = straightFight(army1, army2);
+
+        //Then
+        assertFalse(result);
+    }
 }
+
+//todo add tests for warlord
+//todo add tests for werewolf
+//todo add synchronization to sun
