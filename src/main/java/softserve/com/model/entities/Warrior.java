@@ -56,6 +56,11 @@ public class Warrior implements Unit, WarriorInterface, WeaponInterface {
     }
 
     @Override
+    public int getUnitAttack() {
+        return attack;
+    }
+
+    @Override
     public boolean isUnitAlive() {
         return this.getHealth() > 0;
     }

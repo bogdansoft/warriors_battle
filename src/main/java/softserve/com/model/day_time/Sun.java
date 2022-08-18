@@ -11,10 +11,12 @@ public class Sun {
     }
 
     public static Sun getInstance() {
-        if (sun == null)
-            sun = new Sun();
+        synchronized (Sun.class) {
+            if (sun == null)
+                sun = new Sun();
 
-        return sun;
+            return sun;
+        }
     }
 
     public DayType getDayType() {

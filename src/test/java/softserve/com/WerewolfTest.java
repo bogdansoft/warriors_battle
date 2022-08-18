@@ -15,7 +15,7 @@ import static softserve.com.service.Battle.fight;
 import static softserve.com.service.Battle.straightFight;
 
 class WerewolfTest {
-    private static Sun sun;
+    private Sun sun;
 
     @BeforeEach
     void beforeEach() {
@@ -90,13 +90,13 @@ class WerewolfTest {
     }
 
     @Test
-    @DisplayName("iihkj")
+    @DisplayName("Battle test")
     void getBattleTest() {
         //Given
         Army army1 = new Army();
         Army army2 = new Army();
-        army1.addUnits(Warrior::new, 1);
-        army2.addUnits(Werewolf::new, 2);
+        army1.addUnits(Warrior::new, 4);
+        army2.addUnits(Werewolf::new, 5);
 
         //When
         var result = fight(army1, army2);
@@ -142,6 +142,4 @@ class WerewolfTest {
     }
 }
 
-//todo add tests for warlord
 //todo add tests for werewolf
-//todo add synchronization to sun

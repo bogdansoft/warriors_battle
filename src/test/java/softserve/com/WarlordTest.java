@@ -10,6 +10,8 @@ import softserve.com.model.entities.weapons.Shield;
 import softserve.com.model.entities.weapons.Sword;
 import softserve.com.service.Battle;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -92,6 +94,69 @@ class WarlordTest {
     }
 
     @Test
+    @DisplayName("Move units when warlord is present in army")
+    void moveUnitsWhenWarlordIsPresentInArmy() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Defender::new, 1);
+        army.addUnits(Knight::new, 1);
+        army.addUnits(Werewolf::new, 2);
+        army.addUnits(Warlord::new, 4);
+        army.addUnits(Healer::new, 2);
+        army.addUnits(Lancer::new, 3);
+        army.addUnits(Warrior::new, 2);
+
+        //When
+        army.moveUnits();
+        var warlordIsPresent = army.isWarlordInArmy();
+        var lancerIsFirst = army.getWarriors().get(0).getClass().getSimpleName().toLowerCase();
+        var healerIsSecond = army.getWarriors().get(1).getClass().getSimpleName().toLowerCase();
+        var lastIndex = army.getWarriors().size() - 1;
+        var warlordIsLast = army.getWarriors().get(lastIndex).getClass().getSimpleName().toLowerCase();
+
+        var warlordsList = army.getWarriors()
+                .stream()
+                .filter(Warlord.class::isInstance)
+                .collect(Collectors.toCollection(ArrayList::new));
+        var warlordsQuantity = warlordsList.size();
+
+        //Then
+        assertAll(
+                () -> assertTrue(warlordIsPresent),
+                () -> assertEquals("lancer", lancerIsFirst),
+                () -> assertEquals("healer", healerIsSecond),
+                () -> assertEquals("warlord", warlordIsLast),
+                () -> assertEquals(1, warlordsQuantity)
+        );
+    }
+
+    @Test
+    @DisplayName("Do nothing when warlord is absent in army")
+    void doNothingWhenWarlordIsAbsentInArmy() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Defender::new, 1);
+        army.addUnits(Knight::new, 1);
+        army.addUnits(Werewolf::new, 2);
+        army.addUnits(Healer::new, 2);
+        army.addUnits(Lancer::new, 3);
+        army.addUnits(Warrior::new, 2);
+
+        //When
+        army.moveUnits();
+        var warlordIsAbsent = army.isWarlordInArmy();
+        var lancerIsFirst = army.getWarriors().get(0).getClass().getSimpleName().toLowerCase();
+        var healerIsSecond = army.getWarriors().get(1).getClass().getSimpleName().toLowerCase();
+
+        //Then
+        assertAll(
+                () -> assertFalse(warlordIsAbsent),
+                () -> assertNotEquals("lancer", lancerIsFirst),
+                () -> assertNotEquals("healer", healerIsSecond)
+        );
+    }
+
+    @Test
     @DisplayName("Is lancer in army")
     void isLancerInArmy() {
         //Given
@@ -127,13 +192,32 @@ class WarlordTest {
     }
 
     @Test
+    @DisplayName("Is any attacker in army")
+    void isAttackerInArmy() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Warlord::new, 1);
+        army.addUnits(Lancer::new, 3);
+        army.addUnits(Healer::new, 3);
+        army.addUnits(Defender::new, 11);
+        army.addUnits(Warrior::new, 12);
+        army.addUnits(Werewolf::new, 12);
+
+        //When
+        var result = army.isAnyAttackerInArmy();
+
+        //Then
+        assertTrue(result);
+    }
+
+    @Test
     @DisplayName("Is warlord on the last place in army")
     void isWarlordInArmyOnTheLastPlace() {
         //Given
         Army army = new Army();
         army.addUnits(Warlord::new, 1);
         army.addUnits(Defender::new, 11);
-        army.addUnits(Warrior::new, 12);
+        army.addUnits(Werewolf::new, 12);
 
         //When
         army.moveUnits();
@@ -185,6 +269,23 @@ class WarlordTest {
                 () -> assertEquals("Healer", second),
                 () -> assertEquals("Healer", third)
         );
+    }
+
+    @Test
+    @DisplayName("Is any attacker on the first place in army when there are no lancers")
+    void isAttackerInArmyOnTheFirstPlace() {
+        //Given
+        Army army = new Army();
+        army.addUnits(Warlord::new, 1);
+        army.addUnits(Healer::new, 3);
+        army.addUnits(Warrior::new, 12);
+
+        //When
+        army.moveUnits();
+        var first = army.getWarriors().get(0).getClass().getSimpleName();
+
+        //Then
+        assertEquals("Warrior", first);
     }
 
     @Test

@@ -54,11 +54,7 @@ public class Army {
     public boolean isAnyAttackerInArmy() {
         List<Unit> getAllAttackers = this.getWarriors()
                 .stream()
-                .filter(Knight.class::isInstance)
-                .filter(Vampire.class::isInstance)
-                .filter(Defender.class::isInstance)
-                .filter(Warrior.class::isInstance)
-                .filter(Werewolf.class::isInstance)
+                .filter(w -> w.getUnitAttack() > 0)
                 .collect(toCollection(ArrayList::new));
 
         return !getAllAttackers.isEmpty();
@@ -104,11 +100,7 @@ public class Army {
 
         if (firstWarriorValue instanceof Healer) {
             var anyWarrior = this.getWarriors().stream()
-                    .filter(Knight.class::isInstance)
-                    .filter(Vampire.class::isInstance)
-                    .filter(Defender.class::isInstance)
-                    .filter(Warrior.class::isInstance)
-                    .filter(Werewolf.class::isInstance)
+                    .filter(w -> w.getUnitAttack() > 0)
                     .findFirst()
                     .orElseThrow(NoSuchElementException::new);
 
