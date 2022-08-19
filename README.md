@@ -156,3 +156,98 @@ The basic parameters of the Vampire:
     attack = 4
     vampirism = 50%
 You should store vampirism attribute as an integer (50 for 50%). It will be needed to make this solution evolve to fit one of the next challenges of this saga.
+
+#### 5-lancer
+
+It seems that the Warrior, Knight, Defender and Vampire are not enough to win the battle. Let's add one more powerful unit type - the Lancer.
+
+Lancer should be the subclass of the Warrior class and should attack in a specific way - when he hits the other unit, he also deals a 50% of the deal damage to the enemy unit, standing behind the firstly assaulted one (enemy defense makes the deal damage value lower - consider this).
+
+The basic parameters of the Lancer:
+  health = 50
+  attack = 6
+  
+#### 6-healer
+
+The battle continues and each army is losing good warriors. Let's try to fix that and add a new unit type - the Healer.
+
+Healer won't be fighting (his attack = 0, so he can't deal the damage). But his role is also very important - every time the allied soldier hits the enemy, the Healer will heal the ally, standing right in front of him by +2 health points with the heal() method. Note that the health after healing can't be greater than the maximum health of the unit.
+For example, if the Healer heals the Warrior with 49 health points, the Warrior will have 50 hp, because this is the maximum for him.
+
+The basic parameters of the Healer:
+  health = 60
+  attack = 0
+  
+#### 7-straight fight
+
+A new unit type won’t be added in this mission, but instead we’ll add a new tactic - straightFight(army1, army2). It should be the method of the Battle class and it should work as follows:
+
+at the beginning there will be a few duels between each pair of soldiers from both armies (the first unit against the first, the second against the second and so on).
+After that all dead soldiers will be removed and the process repeats until all soldiers of one of the armies will be dead.
+Armies might not have the same number of soldiers. If a warrior doesn’t have an opponent from the enemy army - we’ll automatically assume that he’s won a duel (for example - 9th and 10th units from the first army, if the second has only 8 soldiers).
+
+It's very important to note that the special abilities of the Lancer and Healer do not work in a straight fight - nobody is standing in front of or behind any of their allies, so there's nobody for the Lancer to deal extra damage to or the Healer to heal.
+
+#### 8-weapons
+
+In this mission you should create a new class Weapon(health, attack, defense, vampirism, healPower) which will equip your soldiers with weapons. Every weapon's object will have the parameters that will show how the soldier's characteristics change while he uses this weapon. Assume that if the soldier doesn't have some of the characteristics (for example, defense or vampirism), but the weapon have those, these parameters don't need to be added to the soldier.
+
+The parameters list:
+health - add to the current health and the maximum health of the soldier this modificator;
+attack - add to the soldier's attack this modificator;
+defense - add to the soldier's defense this modificator;
+vampirism - increase the soldier’s vampirism to this number (in %. So vampirism = 20 means +20%);
+healPower - increase the amount of health which the healer restore for the allied unit.
+
+All parameters could be positive or negative, so when a negative modificator is being added to the soldier’s stats, they are decreasing, but none of them can be less than 0.
+
+Let’s look at this example: vampire (basic parameters: health = 40, attack = 4, vampirism = 50%) equip the Weapon(20, 5, 2, -60, -1). The vampire has the health and the attack, so they will change - health will grow up to 60 (40 + 20), attack will be 9 (4 + 5). The vampire doesn’t have defense or the healPower, so these weapon modificators will be ignored. The weapon's vampirism modificator -60% will work as well. The standard vampirism value is only 50%, so we’ll get -10%. But, as we said before, the parameters can’t be less than 0, so the vampirism after all manipulations will be just 0%.
+
+Also you should create a few standard weapons classes, which should be the subclasses of the Weapon. Here’s their list:
+    Sword - health +5, attack +2
+    Shield - health +20, attack -1, defense +2
+    GreatAxe - health -15, attack +5, defense -2, vampirism +10%
+    Katana - health -20, attack +6, defense -5, vampirism +50%
+    MagicWand - health +30, attack +3, healPower +3
+And finally, you should add an equipWeapon(Weapon weapon) method to all of the soldiers classes. It should equip the chosen soldier with the given weapon.
+This method also should work for the units in the army. You should be referenced by position from the head (the front warrior is considered to be at position 0):
+myArmy.equipWarriorAtPosition(0, new Sword()) - equip the first soldier with the sword.
+
+Notes:
+While healing (both vampirism and health restored by the healer), the health can’t be greater than the maximum amount of health for this unit (with consideration of all of the weapon's modificators).
+If the heal from vampirism is float (for example 3.6, 1.1, 2.945), round it down in any case. So 3.6 = 3, 1.1 = 1, 2.945 = 2.
+Every soldier can be equipped with any number of weapons and get all their bonuses, but if he wears too much weapons with the negative health modificator and his health is lower or equal 0 - he is as good as dead, which is actually pretty dead in this case.
+
+#### 9-warlord
+
+In this mission you should add a new class Warlord(), which should be the subclass of the Warrior class and have the following characteristics:
+health = 100
+attack = 4
+defense = 2
+
+Also, when the Warlord is included in any of the armies, that particular army gets the new moveUnits() method which allows to rearrange the units of that army for the better battle result. The rearrangement is done not only before the battle, but during the battle too, each time the allied units die. The rules for the rearrangement are as follow:
+If there are Lancers in the army, they should be placed in front of everyone else.
+If there is a Healer in the army, he should be placed right after the first soldier to heal him during the fight. If the number of Healers is > 1, all of them should be placed right behind the first Healer.
+If there are no more Lancers in the army, but there are other soldiers who can deal damage, they also should be placed in first position, and the Healer should stay in the 2nd row (if army still has Healers).
+Warlord should always stay way in the back to look over the battle and rearrange the soldiers when it's needed.
+Every army can have no more than 1 Warlord.
+If the army doesn’t have a Warlord, it can’t use the moveUnits() method. (it should do nothing in such case)
+
+#### 10-creative task
+
+You need to describe the idea (as a specification), provide basic smoke test, implement the idea, provide a suit of more granular tests to cover your use cases.
+
+
+Possible ideas:
+- werewolves that switch class (Defender / Vampire) depending on the day / night cycle (provided by Sun singleton);
+- Sun and Moon cycles that govern behavior of some classes;
+- destructible weapon;
+- poisoning or burning damage;
+- classes with the ability to sacrifice for mass healing or mass damage;
+- cannons or archers;
+- warlords-necromancers;
+- warlords who can evacuate wounded warriors to rare line to be healed;
+- dragons;
+- character stealing classes;
+- character stealing weapon;
+- asynchronous battle on two or more fighting areas with logs;
