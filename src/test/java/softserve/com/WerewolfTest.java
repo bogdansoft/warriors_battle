@@ -51,14 +51,14 @@ class WerewolfTest {
         var result = werewolfVampire.getState().getClass().getSimpleName();
         var getHealth = werewolfVampire.getHealth();
         var getAttack = werewolfVampire.getAttack();
-        var getVampirism = werewolfVampire.getVampirismLevel();
+        var getVampirismLevel = werewolfVampire.getVampirismLevel();
 
         //Then
         assertAll(
                 () -> assertEquals("Vampire", result),
                 () -> assertEquals(40, getHealth),
                 () -> assertEquals(4, getAttack),
-                () -> assertEquals(50, getVampirism)
+                () -> assertEquals(50, getVampirismLevel)
         );
     }
 
